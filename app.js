@@ -60,6 +60,8 @@ const resetHScore = async (sc) => {
 };
 
 const gameOver = () => {
+  makeSound('gameover');
+
   if (score > +hscoreEl.textContent) {
     resetHScore(score);
   }
@@ -91,10 +93,17 @@ const showHide = (div, ind) => {
   clickedEl.textContent = youLeft;
 };
 
+const makeSound = (type) => {
+  const sound = new Audio(`./sounds/${type}.mp3`);
+  sound.play();
+  console.log(type);
+};
+
 const displayUI = (datas) => {
   console.log(datas);
   fronts.forEach((front, ind) => {
     cards[ind].addEventListener('click', () => {
+      makeSound('flip');
       showHide(cards[ind], datas[ind]);
     });
     front.innerHTML = `<img src="img/${datas[ind]}.png" alt="${datas[ind]}" />`;
