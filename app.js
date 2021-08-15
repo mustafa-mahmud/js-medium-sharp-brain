@@ -7,7 +7,7 @@ const start = document.getElementById('start');
 const scoreEl = document.querySelector('.score i');
 const clickedEl = document.querySelector('.clicked i');
 
-let youLeft = 40;
+let youLeft = 50;
 let nums1 = [];
 let nums2 = [];
 let randomNums = [];
@@ -117,14 +117,13 @@ const displayUI = (datas) => {
 
 const startGame = () => {
   start.style.display = 'none';
-  youLeft = 40;
+  youLeft = 50;
   score = 0;
   randomNums = [];
   nums1 = randoms();
   randomNums = [];
   nums2 = randoms();
   const datas = nums1.concat(nums2);
-
   clickedEl.textContent = youLeft;
   scoreEl.textContent = score;
 
