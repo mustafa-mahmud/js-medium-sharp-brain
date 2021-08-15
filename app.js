@@ -3,10 +3,11 @@
 const cards = document.querySelectorAll('.card');
 const fronts = document.querySelectorAll('.card .front');
 const hscoreEl = document.querySelector('.hscore i');
+const start = document.getElementById('start');
 const scoreEl = document.querySelector('.score i');
 const clickedEl = document.querySelector('.clicked i');
 
-let youLeft = 20;
+let youLeft = 40;
 let nums1 = [];
 let nums2 = [];
 let randomNums = [];
@@ -22,13 +23,13 @@ const fetchHScore = async () => {
 };
 
 const randoms = () => {
-  const loopLength = randomNums.length === 0 ? 9 : randomNums.length;
+  const loopLength = randomNums.length === 0 ? 19 : randomNums.length;
   for (let i = 1; i < loopLength; i++) {
-    const rand = Math.floor(Math.random() * 8) + 1;
+    const rand = Math.floor(Math.random() * 18) + 1;
     if (!randomNums.includes(rand)) randomNums.push(rand);
   }
 
-  if (randomNums.length < 8) randoms();
+  if (randomNums.length < 18) randoms();
 
   return randomNums;
 };
@@ -56,12 +57,14 @@ const resetHScore = async (sc) => {
   if (data === 'Success') {
     alert(`You have a high score ${sc}`);
   }
-  console.log(data);
 };
 
 const gameOver = () => {
-  makeSound('gameover');
+  setTimeout(() => {
+    location.reload();
+  }, 10000);
 
+  makeSound('gameover');
   if (score > +hscoreEl.textContent) {
     resetHScore(score);
   }
@@ -72,6 +75,7 @@ const showHide = (div, ind) => {
 
   if (howManyOpened === 2) return;
   div.classList.remove('show');
+  makeSound('flip');
 
   setTimeout(function () {
     div.classList.add('show');
@@ -96,31 +100,39 @@ const showHide = (div, ind) => {
 const makeSound = (type) => {
   const sound = new Audio(`./sounds/${type}.mp3`);
   sound.play();
-  console.log(type);
 };
 
 const displayUI = (datas) => {
-  console.log(datas);
   fronts.forEach((front, ind) => {
-    cards[ind].addEventListener('click', () => {
-      makeSound('flip');
-      showHide(cards[ind], datas[ind]);
-    });
+    cards[ind].addEventListener(
+      'click',
+      () => {
+        showHide(cards[ind], datas[ind]);
+      },
+      true
+    );
     front.innerHTML = `<img src="img/${datas[ind]}.png" alt="${datas[ind]}" />`;
-  });
+  }, 100);
 };
 
 const startGame = () => {
+  start.style.display = 'none';
+  youLeft = 40;
+  score = 0;
   randomNums = [];
   nums1 = randoms();
   randomNums = [];
   nums2 = randoms();
   const datas = nums1.concat(nums2);
 
+  clickedEl.textContent = youLeft;
+  scoreEl.textContent = score;
+
   displayUI(datas);
 };
 
 ////////////////////
 randoms();
-hscore.addEventListener('click', startGame);
+fetchHScore();
+start.addEventListener('click', startGame);
 hscore.addEventListener('click', fetchHScore);

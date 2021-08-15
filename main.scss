@@ -12,6 +12,31 @@ html {
 
 body {
 	background-color: whitesmoke;
+	min-width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+button {
+	border: 0;
+	padding: 1rem 2rem;
+	background-color: #000;
+	color: #fff;
+	font-size: 1.3rem;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	border-radius: 3px;
+	cursor: pointer;
+	position: absolute;
+	left: 0rem;
+	top: 1rem;
+	z-index: 99;
+
+	&:active {
+		transform: scale(0.97);
+	}
 }
 
 .overlay {
@@ -26,28 +51,6 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	.start-game {
-		text-align: center;
-		color: #000;
-		background-color: #fff;
-		padding: 2rem;
-
-		button {
-			border: 0;
-			padding: 1rem 2rem;
-			background-color: #000;
-			color: #fff;
-			font-size: 1.3rem;
-			margin-top: 2rem;
-			border-radius: 3px;
-			cursor: pointer;
-
-			&:active {
-				transform: scale(0.97);
-			}
-		}
-	}
 }
 
 .overlay.hidden {
@@ -60,13 +63,13 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-
+	width: 630px;
 	position: relative;
 
 	.hscore {
 		position: absolute;
 		right: 1rem;
-		top: 1rem;
+		top: 2rem;
 		font-size: 2.5rem;
 	}
 
@@ -82,8 +85,8 @@ body {
 		background-color: #f00;
 
 		.card-container {
-			width: 420px;
-			height: 420px;
+			width: 630px;
+			height: 630px;
 			display: flex;
 			flex-wrap: wrap;
 			align-content: flex-start;
